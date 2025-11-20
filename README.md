@@ -4,7 +4,6 @@ CS4440 Final Project - Fire Anomaly Detection
 Group Members:  Noah, Tim, David, Nick, and Brandon
 =======
 # California Wildfire Risk Predictor: Cost-Sensitive Anomaly Detection
-
 ## Project Overview
 
 This project implements a **high-recall binary classification model** to predict the daily risk of a wildfire starting in California.
