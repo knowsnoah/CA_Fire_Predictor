@@ -76,7 +76,4 @@ with open('CA_Weather_Fire_Dataset_1984-2025.csv', 'r') as csvfile:
             Y.append(1 if target_value == 'true' else 0)
         except (ValueError, IndexError) as e:
             pass
-
-
-
-    
+        
