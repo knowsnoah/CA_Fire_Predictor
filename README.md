@@ -1,7 +1,3 @@
-<<<<<<< Updated upstream
-#CA_FIRE_PREDICTOR
-CS4440 Final Project - Fire Anomaly Detection 
-Group Members:  Noah, Tim, David, Nick, and Brandon
 =======
 # California Wildfire Risk Predictor: Cost-Sensitive Anomaly Detection
 
@@ -57,5 +53,6 @@ The model's probability output will be converted into a binary signal using a sa
 -Noah Ojeda
 -Nick Hoang
 -David Carbajal
+-Brandon (Last name)
 -I forgot his name update it when you can!
 >>>>>>> Stashed changes
