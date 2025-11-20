@@ -44,8 +44,8 @@ The model's probability output will be converted into a binary signal using a sa
 ---
 ## Team Members
 
--Timothy Tsang
--Noah Ojeda
--Nick Hoang
--David Carbajal
--Brandon (Last name)
+- Timothy Tsang
+- Noah Ojeda
+- Nick Hoang
+- David Carbajal
+- Brandon (Last name)
