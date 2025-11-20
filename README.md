@@ -32,9 +32,6 @@ To overcome the severe class imbalance, we employ **Class Weighting** during mod
 ### 1. Weight Calculation
 The **scale\_pos\_weight** parameter assigns a higher penalty to errors made on the minority class.
 
-$$
-\text{scale\_pos\_weight} = \frac{\text{Number of No Fire Days}}{\text{Number of Fire Days}}
-$$
 
 ### 2. Impact on Training
 The calculated weight is applied to the model's loss function. This makes a **False Negative** (missing a fire) highly expensive, forcing the model to prioritize **Recall** and aggressively seek out fire-conducive patterns.
