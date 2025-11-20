@@ -39,7 +39,7 @@ The calculated weight is applied to the model's loss function. This makes a **Fa
 ### 3. Final Output Target
 The model's probability output will be converted into a binary signal using a safety-optimized threshold ($\tau$):
 
-* If $P(\text{Fire}) \geq \tau$, the final output is **`HIGH_FIRE_RISK_DAY`**.
+* If $P(\text{Fire}) \geq \tau$, the final output is **`HIGH_RISK_FIRE_DAY`**.
 * If $P(\text{Fire}) < \tau$, the final output is **`NORMAL_DAY`**.
 ---
 ## Team Members
