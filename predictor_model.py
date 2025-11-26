@@ -99,8 +99,11 @@ df[TARGET_NAME] = Y
 #creating the correlation matrix
 correlation_matrix = df.corr(numeric_only=True)
 
-''' CODE FOR VISUALIZING THE CORRELATION MATRIX USING HEATMAPS 
-    IMPORT SEASBORN AS sns AND MATPLOTLIB.PYPLOT AS PLT TO USE THIS CODE
+'''
+#CODE FOR VISUALIZING THE CORRELATION MATRIX USING HEATMAPS 
+import seaborn as sns
+import matplotlib.pyplot as plt
+
 
 #full heatmap
 plt.figure(figsize=(10,8))
@@ -131,5 +134,26 @@ sns.heatmap(
 )
 plt.title("Correlation with Fire Start Day")
 plt.tight_layout()
-plt.show()
-'''
+plt.show()'''
+
+no = 0
+yes = 0
+for value in Y:
+  if value == 0:
+    no += 1
+  elif value == 1:
+    yes += 1
+print("no: ", no)
+print("yes: ", yes)
+
+from sklearn.utils.class_weight import compute_class_weight
+
+class_weights = compute_class_weight(
+    class_weight='balanced',
+    classes=np.array([0,1]),
+    y=Y
+)
+
+no_Weight, yes_Weight = class_weights
+print("Weight for No: ", no_Weight)
+print("Weight for Yes: ", yes_Weight)
