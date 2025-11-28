@@ -185,7 +185,7 @@ y_pred  = rf.predict(X_test)
 print("Classification report:")
 print(classification_report(Y_test, y_pred, digits=4))
 
-#(extra) just to see the top 10 features by importance using the DataFrame and correlation matrix we created earlier
+#(extra) just to see the top 5 features by importance using the DataFrame and correlation matrix we created earlier
 importances = rf.feature_importances_
 imp_df = (
     pd.DataFrame({"feature": feature_names, "importance": importances})
@@ -193,5 +193,5 @@ imp_df = (
       .reset_index(drop=True)
 )
 
-print("\nTop 10 features by importance:")
-print(imp_df.head(10).to_string(index=False))
+print("\nTop 5 features by importance:")
+print(imp_df.head(5).to_string(index=False))
