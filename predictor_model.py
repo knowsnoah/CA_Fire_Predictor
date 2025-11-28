@@ -5,6 +5,7 @@ import csv
 import math
 import seaborn as sns
 
+
 FEATURE_VALUES = [
     'precipitation',
     'max_temp',
@@ -143,10 +144,15 @@ for value in Y:
     no += 1
   elif value == 1:
     yes += 1
-print("no: ", no)
-print("yes: ", yes)
+print("Number of instances with fire_start_day = 0 (No) and 1 = (Yes)")
+print("No: ", no)
+print("Yes: ", yes)
 
+#Weights for the classes and Y-instances
+from sklearn.metrics import average_precision_score, classification_report
+from sklearn.model_selection import train_test_split
 from sklearn.utils.class_weight import compute_class_weight
+from sklearn.ensemble import RandomForestClassifier
 
 class_weights = compute_class_weight(
     class_weight='balanced',
@@ -155,5 +161,37 @@ class_weights = compute_class_weight(
 )
 
 no_Weight, yes_Weight = class_weights
-print("Weight for No: ", no_Weight)
-print("Weight for Yes: ", yes_Weight)
+print("Class weights:")
+print(f"Weight for No: {no_Weight:0.4f}")
+print(f"Weight for Yes: {yes_Weight:0.4f}")
+
+
+#creating the Random Forest Classifier using the weights calculated above
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=42, stratify=Y)
+
+rf = RandomForestClassifier(
+    n_estimators=300,
+    random_state=42,
+    class_weight={0: no_Weight, 1: yes_Weight}
+)
+
+#fitting the model
+rf.fit(X_train, Y_train)
+
+#predicted probabilities for the "fire" class
+y_probability = rf.predict_proba(X_test)[:, 1]
+y_pred  = rf.predict(X_test)
+
+print("Classification report:")
+print(classification_report(Y_test, y_pred, digits=4))
+
+#(extra) just to see the top 10 features by importance using the DataFrame and correlation matrix we created earlier
+importances = rf.feature_importances_
+imp_df = (
+    pd.DataFrame({"feature": feature_names, "importance": importances})
+      .sort_values("importance", ascending=False)
+      .reset_index(drop=True)
+)
+
+print("\nTop 10 features by importance:")
+print(imp_df.head(10).to_string(index=False))
