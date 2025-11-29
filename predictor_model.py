@@ -10,7 +10,7 @@ from sklearn.utils.class_weight import compute_class_weight
 from sklearn.ensemble import RandomForestClassifier
 
 FEATURE_VALUES = [
-    'precipitation',
+     #removed'precipitation', (less than .025 importance)
     'max_temp',
     'min_temp',
     'avg_wind_speed',
@@ -18,9 +18,15 @@ FEATURE_VALUES = [
     'temp_range',
     'wind_temp_ratio',
     'month',
-    'lagged_precipitation',
+     #removed 'lagged_precipitation', (less than .025 importance)
     'lagged_avg_wind_speed',
-    'season'
+    'season',
+    'temp_3day_avg',
+    'wind_3day_avg',
+    'precip_7day_sum',
+     #removed 'dry_days_7', (less than .025 importance)
+    'temp_wind',
+
 ]
 
 # one hot encoding for seasons
@@ -33,11 +39,11 @@ Y = []  # TARGET VECTOR
 column_indices = {}  # DICTIONARY STORING COLUMN NAME AND ITS INDEX
 
 # Read in CSV file
-with open('CA_Weather_Fire_Dataset_1984-2025.csv', 'r') as csvfile:
+with open('CA_Weather_Fire_Dataset_1984-2025_new.csv', 'r') as csvfile:
     reader = csv.reader(csvfile)
 
     # Maps columns to their index
-    header = next(reader)[1:13]
+    header = next(reader)[1:]
     for i, col_name in enumerate(header):
         column_indices[col_name.lower()] = i
 
@@ -46,7 +52,7 @@ with open('CA_Weather_Fire_Dataset_1984-2025.csv', 'r') as csvfile:
 
     # Iterate through each row of the dataset
     for row in reader:
-        data_slice = row[1:13]
+        data_slice = row[1:]
 
         if not data_slice:
             continue
@@ -57,6 +63,8 @@ with open('CA_Weather_Fire_Dataset_1984-2025.csv', 'r') as csvfile:
         try:
             for name in FEATURE_VALUES:
                 idx = column_indices.get(name)
+                if idx is None:
+                  raise KeyError(f"Column '{name}' not found in CSV header")
 
                 # One hot encoding for the 'season' features
                 if idx == season_index:
